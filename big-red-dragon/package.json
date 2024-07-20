@@ -9,7 +9,8 @@
     "ios": "DARK_MODE=media expo start --ios",
     "web": "DARK_MODE=media expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint",
+    "pretty": "npx @biomejs/biome format --write ./app ./components ./constants ./hooks",
+		"lint": "npx @biomejs/biome lint --write ./app ./components ./constants ./hooks",
     "postinstall": "patch-package"
   },
   "jest": {
@@ -45,6 +46,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@biomejs/biome": "1.8.3",
     "@types/jest": "^29.5.12",
     "@types/react": "~18.2.45",
     "@types/react-test-renderer": "^18.0.7",
