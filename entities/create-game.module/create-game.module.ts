@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import type { User } from "@/shared/user.module/user.module";
 import { create } from "zustand";
-
-type User = {
-    name: string;
-};
 
 type ActiveUsersState = {
     users: User[];
