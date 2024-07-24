@@ -1,12 +1,12 @@
-import { Text, TextInput, View, StyleSheet, Button } from "react-native";
-import { useState } from "react";
 import { gameModule } from "@/entities/create-game.module/create-game.module";
+import { useState } from "react";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Index() {
     const [userName, setUserName] = useState("");
-
+    const addUser = gameModule.methods.addUser()
     const handleAddUser = () => {
-        gameModule.methods.addUser(userName);
+        addUser(userName);
     };
 
     return (
@@ -18,15 +18,15 @@ export default function Index() {
                 padding: 20,
             }}
         >
-            {gameModule.variables.users.map((user) => (
-                <Text key={user.name}>{user.name}</Text>
-            ))}
             <TextInput
                 style={styles.textInput}
                 value={userName}
                 onChangeText={(text) => setUserName(text)}
             />
             <Button title={"Add user"} onPress={handleAddUser} />
+            {gameModule.variables.users().map((user) => (
+                <Text key={user.name}>{user.name}</Text>
+            ))}
         </View>
     );
 }
