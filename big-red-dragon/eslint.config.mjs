@@ -1,0 +1,20 @@
+import pluginJs from "@eslint/js";
+import pluginReact from "eslint-plugin-react";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+
+export default [
+    {
+        files: [
+            "./hooks/**/*",
+            "./entities/**/*",
+            "./components/**/*",
+            "./app/**/*",
+        ],
+        ignores: ["./scripts"],
+    },
+    { languageOptions: { globals: globals.browser } },
+    pluginJs.configs.recommended,
+    ...tseslint.configs.recommended,
+    pluginReact.configs.flat.recommended,
+];

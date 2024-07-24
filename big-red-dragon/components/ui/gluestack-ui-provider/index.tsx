@@ -5,18 +5,24 @@ import { OverlayProvider } from "@gluestack-ui/overlay";
 import { ToastProvider } from "@gluestack-ui/toast";
 
 export function GluestackUIProvider({
-	mode = "light",
-	...props
+    mode = "light",
+    ...props
 }: {
-	mode?: "light" | "dark";
-	children?: any;
-	style?: any;
+    mode?: "light" | "dark";
+    children?: any;
+    style?: any;
 }) {
-	return (
-		<View style={[config[mode], { flex: 1, height: "100%", width: "100%" }, props.style]}>
-			<OverlayProvider>
-				<ToastProvider>{props.children}</ToastProvider>
-			</OverlayProvider>
-		</View>
-	);
+    return (
+        <View
+            style={[
+                config[mode],
+                { flex: 1, height: "100%", width: "100%" },
+                props.style,
+            ]}
+        >
+            <OverlayProvider>
+                <ToastProvider>{props.children}</ToastProvider>
+            </OverlayProvider>
+        </View>
+    );
 }

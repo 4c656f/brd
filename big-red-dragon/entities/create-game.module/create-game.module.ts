@@ -1,10 +1,8 @@
-
 type User = {
     name: string;
 };
 
 const createGameModule = () => {
-
     const users = <User[]>[];
 
     const addUser = (userName: string) => {
@@ -18,8 +16,7 @@ const createGameModule = () => {
         methods: {
             addUser,
         },
-    }
-}
-
+    };
+};
 
 export const gameModule = createGameModule();
