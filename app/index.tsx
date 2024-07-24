@@ -1,3 +1,4 @@
+import Spacing from "@/constants/Spacing";
 import { gameModule } from "@/entities/create-game.module/create-game.module";
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
@@ -15,7 +16,7 @@ export default function Index() {
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
-                padding: 20,
+                padding: Spacing.p.md,
             }}
         >
             <TextInput
@@ -23,10 +24,7 @@ export default function Index() {
                 value={userName}
                 onChangeText={(text) => setUserName(text)}
             />
-            <Button
-                onPress={handleAddUser}
-                title="add user"
-            />
+            <Button onPress={handleAddUser} title="add user" />
 
             {gameModule.variables.users().map((user) => (
                 <Text key={user.name}>{user.name}</Text>
@@ -41,6 +39,6 @@ const styles = StyleSheet.create({
         height: 40,
         borderWidth: 1,
         borderColor: "black",
-        paddingHorizontal: 20,
+        paddingHorizontal: Spacing.p.md,
     },
 });
