@@ -18,9 +18,9 @@ export default function Index() {
           padding: 20,
       }}
     >
-        {gameModule.variables.users.map(user => <Text key={user.name}>{user.name}</Text>)}
-        <TextInput style={styles.textInput} value={userName} onChangeText={text => setUserName(text) } />
-        <Button title={'Add user'} onPress={handleAddUser} />
+    {gameModule.variables.users.map(user => <Text key={user.name}>{user.name}</Text>)}
+    <TextInput style={styles.textInput} value={userName} onChangeText={text => setUserName(text) } />
+    <Button title={'Add user'} onPress={handleAddUser} />
     </View>
   );
 }
