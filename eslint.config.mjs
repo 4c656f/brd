@@ -8,7 +8,7 @@ export default [
         files: [
             "./hooks/**/*",
             "./entities/**/*",
-            "./components/**/*",
+            "./shared/**/*",
             "./app/**/*",
         ],
         ignores: ["./scripts"],

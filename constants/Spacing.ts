@@ -1,4 +1,4 @@
-const Colors = {
+const Spacing = {
     p: {
         sm: 10,
         md: 15,
@@ -14,5 +14,5 @@ const Colors = {
         md: 15,
         lg: 20,
     },
-};
-export default Colors;
+} as const;
+export default Spacing;
