@@ -29,6 +29,7 @@ export default function Index() {
             {gameModule.variables.users().map((user) => (
                 <Text key={user.name}>{user.name}</Text>
             ))}
+            <Text className={"text-red-500"}>Hi</Text>
         </View>
     );
 }
