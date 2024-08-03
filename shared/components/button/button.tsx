@@ -1,5 +1,5 @@
+import Colors from "@/constants/Colors";
 import Spacing from "@/constants/Spacing";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import { useNonNullableContext } from "@/shared/helpers/context";
 import type { SpacingKeys } from "@/shared/types/spacing";
 import { createContext, useState } from "react";
@@ -51,15 +51,13 @@ const useButtonStore = () => {
 
 export const ThemedButton = (props: StyledButtonProps) => {
     const { variant, style, size, children } = props;
-    const bgColor = useThemeColor({}, "background");
     const btnStore = useButtonStore();
 
     const getStyle: (
         state: PressableStateCallbackType
     ) => StyleProp<ViewStyle> = (state) => {
-        btnStore.setIsPressed(state.pressed);
         return [
-            { backgroundColor: bgColor },
+            buttonStyles.base,
             buttonStyles[variant || "default"],
             state.pressed ? buttonStyles[`${variant || "default"}Hover`] : {},
             buttonStyles[size || "md"],
@@ -69,7 +67,12 @@ export const ThemedButton = (props: StyledButtonProps) => {
 
     return (
         <ButtonContext.Provider value={btnStore}>
-            <Pressable style={getStyle} {...props}>
+            <Pressable
+                onPressIn={() => btnStore.setIsPressed(true)}
+                onPressOut={() => btnStore.setIsPressed(false)}
+                style={getStyle}
+                {...props}
+            >
                 {children}
             </Pressable>
         </ButtonContext.Provider>
@@ -81,46 +84,56 @@ type StyledTextProps = {
 } & TextProps;
 
 export const ThemedButtonText = (props: StyledTextProps) => {
-    const { children } = props;
+    const { children, variant, style, ...rest } = props;
 
     const ctx = useNonNullableContext(ButtonContext);
 
-    return <Text style={[buttonTextStyles.default]}>{children}</Text>;
+    return (
+        <Text
+            style={[
+                buttonTextStyles[variant || "default"],
+                ctx.getIsPressed()
+                    ? buttonTextStyles[`${variant || "default"}Hover`]
+                    : {},
+                style,
+            ]}
+            {...rest}
+        >
+            {children}
+        </Text>
+    );
 };
 
 const buttonStyles = StyleSheet.create({
+    base: {
+        borderRadius: 10,
+        // flex: 1,
+    },
     default: {
-        height: 40,
-        borderWidth: 1,
-        borderColor: "black",
+        backgroundColor: Colors.dark.background,
     },
     defaultHover: {
-        height: 40,
-        borderWidth: 1,
-        borderColor: "black",
+        backgroundColor: Colors.dark.backgroundActive,
     },
     sm: {
         paddingHorizontal: Spacing.p.sm,
+        paddingVertical: Spacing.p.sm,
     },
     md: {
         paddingHorizontal: Spacing.p.md,
+        paddingVertical: Spacing.p.md,
     },
     lg: {
         paddingHorizontal: Spacing.p.lg,
+        paddingVertical: Spacing.p.lg,
     },
 });
 
 const buttonTextStyles = StyleSheet.create({
     default: {
-        height: 40,
-        borderWidth: 1,
-        borderColor: "black",
+        color: Colors.dark.textPrimary,
     },
-    defaultHover: {
-        height: 40,
-        borderWidth: 1,
-        borderColor: "black",
-    },
+    defaultHover: {},
     sm: {},
     md: {},
     lg: {},

@@ -1,18 +1,20 @@
 import Spacing from "@/constants/Spacing";
 import { gameModule } from "@/entities/create-game.module/create-game.module";
+import {
+    ThemedButton,
+    ThemedButtonText,
+} from "@/shared/components/button/button";
+import { ThemedInput } from "@/shared/components/input/input";
 import { useState } from "react";
 import {
-    Button,
-    Pressable,
     StyleSheet,
     Text,
-    TextInput,
     View,
 } from "react-native";
 export default function Index() {
     const [userName, setUserName] = useState("");
     const addUser = gameModule.methods.addUser();
-
+    
     const handleAddUser = () => {
         addUser(userName);
     };
@@ -24,15 +26,17 @@ export default function Index() {
                 justifyContent: "center",
                 alignItems: "center",
                 padding: Spacing.p.md,
+                backgroundColor: 'black'
             }}
         >
-            <TextInput
+            <ThemedInput
                 style={styles.textInput}
                 value={userName}
                 onChangeText={(text) => setUserName(text)}
             />
-            <Button onPress={handleAddUser} title="add user" />
-
+            <ThemedButton onPress={handleAddUser}>
+                <ThemedButtonText>Add User</ThemedButtonText>
+            </ThemedButton>
             {gameModule.variables.users().map((user) => (
                 <Text key={user.name}>{user.name}</Text>
             ))}

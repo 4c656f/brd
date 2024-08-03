@@ -18,12 +18,22 @@ const useActiveUsersStore = create<ActiveUsersState & ActiveUsersActions>(
 );
 
 const createGameModule = () => {
+    const addUser = () => {
+        const setter = useActiveUsersStore((sel) => sel.addUser);
+        return (userName: string) => {
+            if (!userName) {
+                return;
+            }
+            setter(userName);
+        };
+    };
+
     return {
         variables: {
             users: () => useActiveUsersStore((sel) => sel.users),
         },
         methods: {
-            addUser: () => useActiveUsersStore((sel) => sel.addUser),
+            addUser: addUser,
         },
     };
 };
