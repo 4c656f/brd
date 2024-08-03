@@ -1,7 +1,14 @@
 import Spacing from "@/constants/Spacing";
 import { gameModule } from "@/entities/create-game.module/create-game.module";
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+    Button,
+    Pressable,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
+} from "react-native";
 export default function Index() {
     const [userName, setUserName] = useState("");
     const addUser = gameModule.methods.addUser();
