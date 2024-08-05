@@ -1,46 +1,37 @@
 import Spacing from "@/constants/Spacing";
 import { gameModule } from "@/entities/create-game.module/create-game.module";
-import {
-    ThemedButton,
-    ThemedButtonText,
-} from "@/shared/components/button/button";
-import { ThemedInput } from "@/shared/components/input/input";
+
 import { useState } from "react";
-import {
-    StyleSheet,
-    Text,
-    View,
-} from "react-native";
+import { StyleSheet, Text } from "react-native";
+import { Button, Input, YStack } from "tamagui";
 export default function Index() {
     const [userName, setUserName] = useState("");
     const addUser = gameModule.methods.addUser();
-    
+
     const handleAddUser = () => {
         addUser(userName);
     };
 
     return (
-        <View
-            style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                padding: Spacing.p.md,
-                backgroundColor: 'black'
-            }}
+        <YStack
+            flex={1}
+            alignItems="center"
+            h={''}
+            borderWidth={2}
+            borderColor="$color"
+            borderRadius="$4"
+            padding="$2"
         >
-            <ThemedInput
+            <Input
                 style={styles.textInput}
                 value={userName}
                 onChangeText={(text) => setUserName(text)}
             />
-            <ThemedButton onPress={handleAddUser}>
-                <ThemedButtonText>Add User</ThemedButtonText>
-            </ThemedButton>
+            <Button onPress={handleAddUser}>Add user</Button>
             {gameModule.variables.users().map((user) => (
                 <Text key={user.name}>{user.name}</Text>
             ))}
-        </View>
+        </YStack>
     );
 }
 
