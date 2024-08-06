@@ -1,55 +1,63 @@
-import Spacing from "@/constants/Spacing";
 import { gameModule } from "@/entities/create-game.module/create-game.module";
-import {
-    ThemedButton,
-    ThemedButtonText,
-} from "@/shared/components/button/button";
-import { ThemedInput } from "@/shared/components/input/input";
+import { SelectedUserList } from "@/entities/create-game.module/SelectedUserList";
+import { StartGameBtn } from "@/entities/create-game.module/StartGameFeature";
+
 import { useState } from "react";
 import {
-    StyleSheet,
-    Text,
-    View,
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    TouchableWithoutFeedback,
 } from "react-native";
+import { Button, Input, styled, YStack } from "tamagui";
+
+const InputContainer = styled(KeyboardAvoidingView, {
+    width: "100%",
+});
+
 export default function Index() {
     const [userName, setUserName] = useState("");
     const addUser = gameModule.methods.addUser();
-    
+
+    const clearInput = () => {
+        setUserName("");
+    };
+
     const handleAddUser = () => {
         addUser(userName);
+        clearInput();
     };
 
     return (
-        <View
-            style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-                padding: Spacing.p.md,
-                backgroundColor: 'black'
-            }}
+        <TouchableWithoutFeedback
+            style={{ flex: 1 }}
+            onPress={Keyboard.dismiss}
+            accessible={false}
         >
-            <ThemedInput
-                style={styles.textInput}
-                value={userName}
-                onChangeText={(text) => setUserName(text)}
-            />
-            <ThemedButton onPress={handleAddUser}>
-                <ThemedButtonText>Add User</ThemedButtonText>
-            </ThemedButton>
-            {gameModule.variables.users().map((user) => (
-                <Text key={user.name}>{user.name}</Text>
-            ))}
-        </View>
+            <YStack
+                flex={1}
+                alignItems="center"
+                justifyContent="center"
+                padding={"$2"}
+                gap={"$2"}
+                backgroundColor={"$black1"}
+                borderRadius="$4"
+            >
+                <InputContainer
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                >
+                    <Input
+                        width={"100%"}
+                        value={userName}
+                        onChangeText={(text) => setUserName(text)}
+                    />
+                </InputContainer>
+                <Button onPress={handleAddUser}>Add user</Button>
+                {gameModule.variables.users().length > 0 ? (
+                    <SelectedUserList />
+                ) : null}
+                <StartGameBtn />
+            </YStack>
+        </TouchableWithoutFeedback>
     );
 }
-
-const styles = StyleSheet.create({
-    textInput: {
-        width: "100%",
-        height: 40,
-        borderWidth: 1,
-        borderColor: "black",
-        paddingHorizontal: Spacing.p.md,
-    },
-});
